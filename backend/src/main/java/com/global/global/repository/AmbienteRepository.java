@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.global.global.model.AmbienteModel;
 
 @Repository
-public interface AmbienteRepository extends JpaRepository<AmbienteModel, Long> {
+public interface AmbienteRepository extends JpaRepository<AmbienteModel, Integer> {
 
 }

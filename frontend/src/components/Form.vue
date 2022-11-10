@@ -14,7 +14,7 @@ interface FormData {
   isSuccess: boolean;
 }
 
-interface CreateVeiculo {
+interface Veiculo {
   marca: string;
   modelo: string;
   placaVeiculo: string;
@@ -36,11 +36,16 @@ export default defineComponent({
       isSuccess: true,
     };
   },
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    },
+  },
   methods: {
-    async createVeiculo(product: CreateVeiculo) {
+    async createVeiculo(product: Veiculo) {
       const body = product;
       try {
-        const response = await api.post("/analytics/veiculos", body);
+        const response = await api.post("/veiculos", body);
         console.log(response);
         this.isViewFeedback = true;
         this.isSuccess = true;
@@ -66,7 +71,8 @@ export default defineComponent({
 
 <template>
   <section class="cadastro">
-    <h1>Cadastro de veículos</h1>
+    <h1 v-if="currentRouteName == 'Editar veículos'">Edição de veículo</h1>
+    <h1 v-else>Cadastro de veículos</h1>
     <form class="form" @submit="handleCreateVeiculo($event)">
       <div class="form__field">
         <label for="marca">marca</label>
@@ -94,7 +100,10 @@ export default defineComponent({
           v-model="veiculo.quilometragem"
         />
       </div>
-      <button type="submit">criar veículo</button>
+      <button v-if="currentRouteName == 'Editar veículos'">
+        editar veículo
+      </button>
+      <button v-else type="submit">criar veículo</button>
     </form>
     <p
       class="feedback"

@@ -1,5 +1,7 @@
 package com.global.global.dto;
 
+import com.global.global.model.AmbienteModel;
+
 public class VeiculoDTO {
 	
 	private int id;
@@ -7,15 +9,17 @@ public class VeiculoDTO {
 	private String modelo;
 	private String placaVeiculo;
 	private double quilometragem;
+	private AmbienteModel ambiente;
 	
 	public VeiculoDTO() {
 	}
 	
-	public VeiculoDTO(String marca, String modelo, String placaVeiculo, double quilometragem) {
+	public VeiculoDTO(String marca, String modelo, String placaVeiculo, double quilometragem, AmbienteModel ambiente) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.placaVeiculo = placaVeiculo;
 		this.quilometragem = quilometragem;
+		this.ambiente = ambiente;
 	}
 	
 	public String getMarca() {
@@ -56,6 +60,14 @@ public class VeiculoDTO {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public AmbienteModel getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(AmbienteModel ambiente) {
+		this.ambiente = ambiente;
 	}
 	
 }

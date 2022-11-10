@@ -8,12 +8,19 @@ export default defineComponent({
     RouterLink,
     RouterView,
   },
+  computed: {
+    isRoutePathVeiculos() {
+      return this.$route.path.includes("/editar-veiculo");
+    },
+  },
 });
 </script>
 
 <template>
   <nav class="navigation">
-    <RouterLink to="/">Cadastro</RouterLink>
+    {{ currentRouteName }}
+    <RouterLink to="/cadastro-veiculo">Cadastro</RouterLink>
+    <RouterLink v-if="isRoutePathVeiculos" to="/veiculos"> Editar </RouterLink>
     <RouterLink to="/veiculos">Listagem</RouterLink>
   </nav>
   <RouterView />

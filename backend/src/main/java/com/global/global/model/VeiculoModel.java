@@ -1,13 +1,30 @@
 package com.global.global.model;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class VeiculoModel {
+	
+	public VeiculoModel() {
+	}
+	
+	public VeiculoModel(String marca, String modelo, String placaVeiculo, double quilometragem,
+			AmbienteModel ambiente) {
+		this.marca = marca;
+		this.modelo = modelo;
+		this.placaVeiculo = placaVeiculo;
+		this.quilometragem = quilometragem;
+		this.ambiente = ambiente;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,8 +41,9 @@ public class VeiculoModel {
 	@Column(nullable = false)
 	private double quilometragem;
 	
-	@Column(nullable = false)
-	private int ambienteId;
+	@OneToOne
+    @JoinColumn(name = "ambiente_id")
+	private AmbienteModel ambiente;
 
 	public int getId() {
 		return id;
@@ -67,11 +85,11 @@ public class VeiculoModel {
 		this.quilometragem = quilometragem;
 	}
 
-	public int getAmbienteId() {
-		return ambienteId;
+	public AmbienteModel getAmbiente() {
+		return ambiente;
 	}
 
-	public void setAmbienteId(int ambienteId) {
-		this.ambienteId = ambienteId;
+	public void setAmbiente(AmbienteModel ambiente) {
+		this.ambiente = ambiente;
 	}
 }

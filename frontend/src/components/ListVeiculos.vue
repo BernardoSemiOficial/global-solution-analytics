@@ -1,4 +1,5 @@
 <script lang="ts">
+import router from "@/router";
 import { defineComponent } from "vue";
 import api from "../services/api";
 
@@ -6,11 +7,28 @@ export default defineComponent({
   name: "ListProducts",
   data() {
     return {
-      veiculos: [],
+      veiculos: [
+        {
+          id: 26,
+          marca: "Chevrolet",
+          modelo: "Prisma",
+          placaVeiculo: "FD1",
+          quilometragem: 8.0,
+          ambienteId: 0,
+        },
+        {
+          id: 25,
+          marca: "Fiat",
+          modelo: "Uno",
+          placaVeiculo: "AB123",
+          quilometragem: 5.5,
+          ambienteId: 0,
+        },
+      ],
     };
   },
   created() {
-    this.getVeiculos();
+    // this.getVeiculos();
   },
   methods: {
     formatCoin(value: any) {
@@ -22,9 +40,22 @@ export default defineComponent({
     },
     getVeiculos() {
       api
-        .get("/analytics/veiculos")
+        .get("/veiculos")
         .then((res) => {
           this.veiculos = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    editarVeiculo(id: number) {
+      router.push(`/editar-veiculo/${id}`);
+    },
+    removeVeiculo(id: number) {
+      api
+        .delete(`/veiculos/${id}`)
+        .then(() => {
+          this.getVeiculos();
         })
         .catch((error) => {
           console.log(error);
@@ -45,6 +76,7 @@ export default defineComponent({
           <th>Modelo</th>
           <th>Place</th>
           <th>Quilometragem</th>
+          <th></th>
         </tr>
       </thead>
       <tbody v-for="veiculo in veiculos" :key="veiculo.id">
@@ -53,6 +85,14 @@ export default defineComponent({
           <td>{{ veiculo.modelo }}</td>
           <td>{{ veiculo.placaVeiculo }}</td>
           <td>{{ veiculo.quilometragem }}</td>
+          <td>
+            <button class="btn-edit" @click="editarVeiculo(veiculo.id)">
+              editar
+            </button>
+            <button class="btn-delete" @click="removeVeiculo(veiculo.id)">
+              excluir
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -106,6 +146,30 @@ p {
 }
 .styled-table tbody tr.active-row {
   font-weight: bold;
+  color: #009879;
+}
+.styled-table tbody .btn-edit,
+.styled-table tbody .btn-delete {
+  padding: 8px 10px;
+  border: 1px solid #009879;
+  margin: 0px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 16px;
+  transition: 0.3s ease all;
+}
+.styled-table tbody .btn-edit:hover,
+.styled-table tbody .btn-delete:hover {
+  transform: scale(0.99);
+  opacity: 0.8;
+}
+.styled-table tbody .btn-edit {
+  background-color: #009879;
+  color: #ffffff;
+}
+.styled-table tbody .btn-delete {
+  background-color: transparent;
   color: #009879;
 }
 </style>

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class AmbienteModel {
@@ -26,6 +27,29 @@ public class AmbienteModel {
 	
 	@Column(nullable = false)
 	private String qualidadeAr;
+	
+	@OneToOne(mappedBy = "ambiente")
+	private VeiculoModel veiculo;
+
+	public VeiculoModel getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(VeiculoModel veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public AmbienteModel() {
+	}
+	
+	public AmbienteModel(String estado, String cidade, String bairro, double tempAmbiente, String qualidadeAr) {
+		super();
+		this.estado = estado;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.tempAmbiente = tempAmbiente;
+		this.qualidadeAr = qualidadeAr;
+	}
 
 	public int getId() {
 		return id;
