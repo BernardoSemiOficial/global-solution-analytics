@@ -14,5 +14,13 @@ public class RegionalService {
     public void save(RegionalModel regional) {
         repository.save(regional);
     }
+    
+    public void remove(int id) {
+        try {
+        	repository.deleteById(id);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+    }
 
 }

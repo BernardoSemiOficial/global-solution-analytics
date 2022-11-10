@@ -66,6 +66,7 @@ public class VeiculoController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<VeiculoModel> deleteVeiculos(@PathVariable(value = "id") String id) {
+		regionalService.remove(Integer.parseInt(id));
 		veiculoService.remove(Integer.parseInt(id));
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

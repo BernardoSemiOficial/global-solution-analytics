@@ -36,4 +36,52 @@ public class VeiculoModel {
     @JoinColumn(name = "ambiente_id")
 	private AmbienteModel ambiente;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public String getPlacaVeiculo() {
+		return placaVeiculo;
+	}
+
+	public void setPlacaVeiculo(String placaVeiculo) {
+		this.placaVeiculo = placaVeiculo;
+	}
+
+	public double getQuilometragem() {
+		return quilometragem;
+	}
+
+	public void setQuilometragem(double quilometragem) {
+		this.quilometragem = quilometragem;
+	}
+
+	public AmbienteModel getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(AmbienteModel ambiente) {
+		this.ambiente = ambiente;
+	}
+
 }

@@ -21,4 +21,12 @@ public class RegionalModel {
     @OneToOne
     @JoinColumn(name = "veiculo_id")
     private VeiculoModel veiculo;
+
+	public VeiculoModel getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(VeiculoModel veiculo) {
+		this.veiculo = veiculo;
+	}
 }

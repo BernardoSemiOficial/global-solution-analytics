@@ -9,20 +9,34 @@ export default defineComponent({
     return {
       veiculos: [
         {
-          id: 26,
-          marca: "Chevrolet",
-          modelo: "Prisma",
-          placaVeiculo: "FD1",
-          quilometragem: 8.0,
-          ambienteId: 0,
-        },
-        {
-          id: 25,
+          id: 1,
           marca: "Fiat",
           modelo: "Uno",
           placaVeiculo: "AB123",
           quilometragem: 5.5,
-          ambienteId: 0,
+          ambiente: {
+            id: 1,
+            estado: "SP",
+            cidade: "São Paulo",
+            bairro: "Penha",
+            tempAmbiente: 25.0,
+            qualidadeAr: "ótima",
+          },
+        },
+        {
+          id: 2,
+          marca: "Ford",
+          modelo: "Ford ka",
+          placaVeiculo: "ABC123",
+          quilometragem: 5.0,
+          ambiente: {
+            id: 2,
+            estado: "SP",
+            cidade: "São Paulo",
+            bairro: "Paulista",
+            tempAmbiente: 25.0,
+            qualidadeAr: "ótimo",
+          },
         },
       ],
     };
@@ -69,6 +83,9 @@ export default defineComponent({
           <th>Modelo</th>
           <th>Place</th>
           <th>Quilometragem</th>
+          <th>Endereço</th>
+          <th>Qualidade do ar</th>
+          <th>Temp. Ambiente</th>
           <th></th>
         </tr>
       </thead>
@@ -78,6 +95,12 @@ export default defineComponent({
           <td>{{ veiculo.modelo }}</td>
           <td>{{ veiculo.placaVeiculo }}</td>
           <td>{{ veiculo.quilometragem }}</td>
+          <td>
+            {{ veiculo.ambiente.estado }} - {{ veiculo.ambiente.cidade }},
+            {{ veiculo.ambiente.bairro }}
+          </td>
+          <td>{{ veiculo.ambiente.qualidadeAr }}</td>
+          <td>{{ veiculo.ambiente.tempAmbiente }}</td>
           <td>
             <button class="btn-edit" @click="editarVeiculo(veiculo.id)">
               editar
