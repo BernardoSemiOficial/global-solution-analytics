@@ -1,6 +1,7 @@
 package com.global.global.dto;
 
 import com.global.global.model.AmbienteModel;
+import com.global.global.model.VeiculoModel;
 
 public class VeiculoDTO {
 	
@@ -10,6 +11,16 @@ public class VeiculoDTO {
 	private String placaVeiculo;
 	private double quilometragem;
 	private AmbienteModel ambiente;
+
+    public VeiculoModel toEntity() {
+        VeiculoModel veiculoModel = new VeiculoModel();
+        veiculoModel.setMarca(getMarca());
+        veiculoModel.setModelo(getModelo());
+        veiculoModel.setPlacaVeiculo(getPlacaVeiculo());
+        veiculoModel.setQuilometragem(getQuilometragem());
+        veiculoModel.setAmbiente(getAmbiente());
+        return veiculoModel;
+    }
 	
 	public VeiculoDTO() {
 	}

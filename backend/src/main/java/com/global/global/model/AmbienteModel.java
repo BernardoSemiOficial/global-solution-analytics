@@ -27,17 +27,6 @@ public class AmbienteModel {
 	
 	@Column(nullable = false)
 	private String qualidadeAr;
-	
-	@OneToOne(mappedBy = "ambiente")
-	private VeiculoModel veiculo;
-
-	public VeiculoModel getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(VeiculoModel veiculo) {
-		this.veiculo = veiculo;
-	}
 
 	public AmbienteModel() {
 	}

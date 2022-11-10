@@ -28,16 +28,9 @@ export default defineComponent({
     };
   },
   created() {
-    // this.getVeiculos();
+    this.getVeiculos();
   },
   methods: {
-    formatCoin(value: any) {
-      var formatter = new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-      return formatter.format(value);
-    },
     getVeiculos() {
       api
         .get("/veiculos")

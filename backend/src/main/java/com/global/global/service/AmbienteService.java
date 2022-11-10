@@ -33,16 +33,11 @@ public class AmbienteService {
 		}
 	}
 	
-	public Object updateById(Integer id, AmbienteDTO dto) {
+	public Object updateById(Integer id, AmbienteModel ambienteModel) {
 		try {
 			Optional<AmbienteModel> ambiente = ambienteRepository.findById(id);
 			if(ambiente.isPresent()) {
-				AmbienteModel ambienteModel = ambiente.get();
-				ambienteModel.setEstado(dto.getEstado());
-				ambienteModel.setCidade(dto.getCidade());
-				ambienteModel.setBairro(dto.getBairro());
-				ambienteModel.setTempAmbiente(dto.getTempAmbiente());
-				ambienteModel.setQualidadeAr(dto.getQualidadeAr());
+                ambienteModel.setId(id);
 				ambienteRepository.save(ambienteModel);
 				return ambienteModel;					
 			}

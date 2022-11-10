@@ -3,6 +3,7 @@ package com.global.global.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.global.global.model.AmbienteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class VeiculoService {
 	
 	@Autowired
 	private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private AmbienteService ambienteService;
 	
 	public List<VeiculoModel> findAll() {
 		try {
@@ -33,22 +37,20 @@ public class VeiculoService {
 		}
 	}
 	
-	public Object updateById(Integer id, VeiculoDTO dto) {
-		try {
-			Optional<VeiculoModel> veiculo = veiculoRepository.findById(id);
-			if(veiculo.isPresent()) {
-				VeiculoModel veiculoModel = veiculo.get();
-				veiculoModel.setMarca(dto.getMarca());
-				veiculoModel.setModelo(dto.getModelo());
-				veiculoModel.setPlacaVeiculo(dto.getPlacaVeiculo());
-				veiculoModel.setQuilometragem(dto.getQuilometragem());
-				veiculoRepository.save(veiculoModel);
-				return veiculoModel;				
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return Optional.empty();
+	public VeiculoModel updateById(Integer id, VeiculoDTO dto) {
+        Optional veiculo = veiculoRepository.findById(id);
+        if(veiculo.isPresent()) {
+            VeiculoModel veiculoAntigo = (VeiculoModel) veiculo.get();
+            VeiculoModel entity = dto.toEntity();
+            AmbienteModel ambiente = dto.getAmbiente();
+            ambiente.setId(veiculoAntigo.getAmbiente().getId());
+            entity.setId(veiculoAntigo.getId());
+            entity.setAmbiente(ambiente);
+            ambienteService.updateById(entity.getAmbiente().getId(), dto.getAmbiente());
+            return veiculoRepository.save(entity);
+        } else {
+            return null;
+        }
 	}
 	
 	public void remove(int id) {

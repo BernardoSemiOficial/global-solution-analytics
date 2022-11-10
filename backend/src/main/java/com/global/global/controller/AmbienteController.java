@@ -32,30 +32,5 @@ public class AmbienteController {
 		Collection<AmbienteModel> ambientes = ambienteService.findAll();
 		return new ResponseEntity<>(ambientes, HttpStatus.OK);
 	}
-	
-	@PostMapping
-	public ResponseEntity<AmbienteModel> postAmbientes(@RequestBody AmbienteDTO dto) {
-		AmbienteModel ambienteModel = new AmbienteModel();
-		ambienteModel.setEstado(dto.getEstado());
-		ambienteModel.setCidade(dto.getCidade());
-		ambienteModel.setBairro(dto.getBairro());
-		ambienteModel.setTempAmbiente(dto.getTempAmbiente());
-		ambienteModel.setQualidadeAr(dto.getQualidadeAr());
-		ambienteService.save(ambienteModel);
-		return new ResponseEntity<>(ambienteModel, HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateAmbientes(@PathVariable(value = "id") String id,
-													   @RequestBody AmbienteDTO dto) {
-		Object ambienteUpdated = ambienteService.updateById(Integer.parseInt(id), dto);
-		return new ResponseEntity<>(ambienteUpdated, HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<AmbienteModel> deleteAmbientes(@PathVariable(value = "id") String id) {
-		ambienteService.remove(Integer.parseInt(id));
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
+
 }

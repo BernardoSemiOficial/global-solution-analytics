@@ -2,6 +2,8 @@ package com.global.global.controller;
 
 import java.util.Collection;
 
+import com.global.global.model.RegionalModel;
+import com.global.global.service.RegionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,40 +33,35 @@ public class VeiculoController {
 	
 	@Autowired
 	private AmbienteService ambienteService;
+
+    @Autowired
+    private RegionalService regionalService;
 	
 	@GetMapping
 	public ResponseEntity<Collection<VeiculoModel>> getVeiculos() {
-		Collection<VeiculoModel> veiculos = veiculoService.findAll();
-		return new ResponseEntity<>(veiculos, HttpStatus.OK);
+        return ResponseEntity.ok(veiculoService.findAll());
 	}
 	
 	@PostMapping
 	public ResponseEntity<VeiculoModel> postVeiculos(@RequestBody VeiculoDTO dto) {
-		VeiculoModel veiculoModel = new VeiculoModel();
-		veiculoModel.setMarca(dto.getMarca());
-		veiculoModel.setModelo(dto.getModelo());
-		veiculoModel.setPlacaVeiculo(dto.getPlacaVeiculo());
-		veiculoModel.setQuilometragem(dto.getQuilometragem());
-		veiculoModel.setAmbiente(dto.getAmbiente());
-		AmbienteModel ambiente = dto.getAmbiente();
+		VeiculoModel veiculoModel = dto.toEntity();
+        RegionalModel regional = new RegionalModel();
+        regional.setVeiculo(veiculoModel);
 		
-		AmbienteModel ambienteModel = new AmbienteModel();
-		ambienteModel.setEstado(ambiente.getEstado());
-		ambienteModel.setCidade(ambiente.getCidade());
-		ambienteModel.setBairro(ambiente.getBairro());
-		ambienteModel.setTempAmbiente(ambiente.getTempAmbiente());
-		ambienteModel.setQualidadeAr(ambiente.getQualidadeAr());
-		ambienteModel.setVeiculo(veiculoModel);
-		ambienteService.save(ambienteModel);
+        ambienteService.save(dto.getAmbiente());
 		veiculoService.save(veiculoModel);
+        regionalService.save(regional);
 		return new ResponseEntity<>(veiculoModel, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateVeiculos(@PathVariable(value = "id") String id,
+	public ResponseEntity<Void> updateVeiculos(@PathVariable(value = "id") String id,
 													   @RequestBody VeiculoDTO dto) {
-		Object veiculoUpdated = veiculoService.updateById(Integer.parseInt(id), dto);
-		return new ResponseEntity<>(veiculoUpdated, HttpStatus.OK);
+		VeiculoModel veiculo = veiculoService.updateById(Integer.parseInt(id), dto);
+        if (veiculo == null) {
+            return ResponseEntity.notFound().build();
+        }
+		return ResponseEntity.ok().build();
 	}
 	
 	@DeleteMapping("/{id}")
