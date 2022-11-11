@@ -7,38 +7,7 @@ export default defineComponent({
   name: "ListProducts",
   data() {
     return {
-      veiculos: [
-        {
-          id: 1,
-          marca: "Fiat",
-          modelo: "Uno",
-          placaVeiculo: "AB123",
-          quilometragem: 5.5,
-          ambiente: {
-            id: 1,
-            estado: "SP",
-            cidade: "São Paulo",
-            bairro: "Penha",
-            tempAmbiente: 25.0,
-            qualidadeAr: "ótima",
-          },
-        },
-        {
-          id: 2,
-          marca: "Ford",
-          modelo: "Ford ka",
-          placaVeiculo: "ABC123",
-          quilometragem: 5.0,
-          ambiente: {
-            id: 2,
-            estado: "SP",
-            cidade: "São Paulo",
-            bairro: "Paulista",
-            tempAmbiente: 25.0,
-            qualidadeAr: "ótimo",
-          },
-        },
-      ],
+      veiculos: [],
     };
   },
   created() {
